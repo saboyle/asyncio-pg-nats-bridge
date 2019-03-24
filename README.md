@@ -17,5 +17,9 @@ Example bridge between postgres and nats message queue.
 3. Run the wiretap to emit received notification messages.
 4. Run the simulator to generate test messages.
 
+## References
+* https://tapoueh.org/blog/2018/07/postgresql-listen/notify/
+
+
 
 
