@@ -1,6 +1,8 @@
 # asyncio-pg-nats-bridge [In Progress]
 Example bridge between postgres and nats message queue.
 
+![](./images/context.jpg)
+
 ## Planned Functionality (minimal)
 * A service will LISTEN to a defined postgres channel.
 * A sample table will be created in Postgres with an attached trigger.
