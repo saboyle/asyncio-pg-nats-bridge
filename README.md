@@ -1,4 +1,4 @@
-# asyncio-pg-nats-bridge [In Progress]
+# asyncio-pg-nats-bridge
 Example bridge between postgres and nats message queue.
 
 ![](images/bridge_context.png)
