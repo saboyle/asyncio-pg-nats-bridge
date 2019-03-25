@@ -12,6 +12,11 @@ Example bridge between postgres and nats message queue.
 
 ## Future
 * Use PipelineDb (https://www.pipelinedb.com/) or plug in to enable streaming continuuos queries / aggregates to be used to generate a CEP stream into NATS.
+* Provide command line args for connection info.
+* Should be trivial to implement for other Messaging systems with Asyncio connectors:
+    * Kafka  : https://github.com/aio-libs/aiokafka
+    * Rabbit : https://github.com/mosquito/aio-pika
+    * SQS    : https://github.com/aio-libs/aiobotocore
 
 ## To demonstrate
 1. Run NATS docker image.
