@@ -12,8 +12,8 @@ Example bridge between postgres and nats message queue.
 * Use PipelineDb (https://www.pipelinedb.com/) or plug in to enable streaming continuuos queries / aggregates to be used to generate a CEP stream into NATS.
 
 ## To demonstrate
-1. Run docker image.
-2. Run postgres image and initialise database.
+1. Run NATS docker image.
+2. Run Postgres docker image and initialise database.
 3. Run the wiretap to emit received notification messages.
 4. Run the simulator to generate test messages.
 
@@ -23,6 +23,10 @@ Example bridge between postgres and nats message queue.
 
 ## Notes
 ``` bash
+# Running the NATS docker image
+docker run -p 4222:4222 -p 8222:8222 -p 6222:6222 --name gnatsd -ti nats:latest
+
+#### Running the Postgres docker image
 docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=password -d postgres
 
 #### To access docker pgdb using local psql
@@ -76,5 +80,13 @@ LISTEN fixtures.parameters;
 
 -- Inserting a dummy record to test async notifications.
 insert into fixtures values (4,1);
+```
+
+## Dependencies
+```bash
+pip install --upgrade pip
+pip install asyncio
+pip install asyncpg
+pip install asyncio-nats-client
 ```
 
