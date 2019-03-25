@@ -1,7 +1,7 @@
 # asyncio-pg-nats-bridge [In Progress]
 Example bridge between postgres and nats message queue.
 
-![](./images/context.png)
+![](images/bridge_context.png)
 
 ## Planned Functionality (minimal)
 * A service will LISTEN to a defined postgres channel.
