@@ -7,27 +7,24 @@ import asyncpg
 NATS_HOST = 'localhost'
 NATS_PORT = '4222'
 
-############################
-# IN PROGRESS - DO NOT USE
-############################
+CHANNEL = 'fixtures.parameters'  # The same channel is configured in both Postgres and NATS (they could be different)
 
 
 async def bridge(loop):
     async def connect_listener():
-        pgconn = await asyncpg.connect(user='postgres', password='password', database='postgres', host='127.0.0.1')
-        await pgconn.add_listener('fixtures.parameters', publish_update)
+        pgconn = await asyncpg.connect(user='postgres', password='password', database='postgres', host='127.0.0.1',
+                                       loop=loop)
+        print("Connected to Postgres")
+        await pgconn.add_listener(CHANNEL, publish_update)
+        await nc.connect(f"{NATS_HOST}:{NATS_PORT}", loop=loop)
 
-    async def publish_update(msg):
-        data = json.loads(msg.data.decode('utf-8'))
-        logger.info('Processing {}'.format(data["uid"]))
-        logger.debug('In mh_s1 with {}'.format(data))
-        idata = json.loads(msg.data.decode('utf-8'))
-        rdata = {'uid': str(idata['uid']), 'claim_id': idata['uid']}
+        print("Listener added")
 
-        await nc.publish("p1.s1", json.dumps(rdata).encode('utf-8'))
+    def publish_update(_con, _pid, _channel, payload):
+        asyncio.run_coroutine_threadsafe(nc.publish(CHANNEL, json.dumps(payload).encode('utf-8')), loop)
+        logger.info(f"Update received: {payload}")
 
     nc = NATS()
-    await nc.connect(f"{NATS_HOST}:{NATS_PORT}", loop=loop)
     await connect_listener()
 
 if __name__ == '__main__':
