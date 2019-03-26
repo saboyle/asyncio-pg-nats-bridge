@@ -4,13 +4,13 @@ Example bridge between postgres and nats message queue.
 ![](images/bridge_context.png)
 
 ## Functionality
-* A service will LISTEN to a defined postgres channel.
-* A sample table will be created in Postgres with an attached trigger.
-* An ON UPDATE trigger will issue a NOTIFY for the defined channel showing the updated values.
-* The bridging service will receive the notify and publish the notify onto a receiving NATS message queue.
-* A wiretap will listen to the queue and emit the notify message to the display.
+* A service LISTENs to a defined postgres channel.
+* A table with an attached trigger is created in Postgres.
+* An ON UPDATE trigger issues a NOTIFY for the defined channel showing the updated / inserted values.
+* The bridging service asynchronously receives the NOTIFY and publishes onto a receiving NATS message queue.
+* A wiretap listens to the queue and emit the notify message to the display.
 
-## Future
+## Future (possible enhancements)
 * Use PipelineDb (https://www.pipelinedb.com/) or plug in to enable streaming continuuos queries / aggregates to be used to generate a CEP stream into NATS.
 * Provide command line args for connection info.
 * Should be trivial to implement for other Messaging systems with Asyncio connectors:
