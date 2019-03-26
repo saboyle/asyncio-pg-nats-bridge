@@ -1,10 +1,11 @@
 import json
 import asyncio
-import time
 from nats.aio.client import Client as NATS
+
 
 async def sleep():
     await asyncio.sleep(0.01)
+
 
 async def pub_random(loop):
     nc = NATS()
@@ -24,5 +25,4 @@ async def pub_random(loop):
 
 if __name__ == '__main__':
     event_loop = asyncio.get_event_loop()
-
-event_loop.run_until_complete(pub_random(event_loop))
+    event_loop.run_until_complete(pub_random(event_loop))
